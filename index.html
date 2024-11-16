@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style2.css" />
+    <link rel="icon" type="image.png" href="images/icons8-rainbow-color-96.png">
+    <title>Sunny-Side</title>
+  </head>
+  <body>
+    <div class="location-select">
+      <input type="text" id="search-location" placeholder="Enter location">
+      <button onclick="searchWeather()">Search</button>
+    </div>
+    <div class="location">
+      <div class="header">
+        <span class="city">city-name</span>
+        <span class="date">date</span>
+        <span class="time">time</span>
+      </div>
+      <h2 class="region">region+country</h2>
+    </div>
+
+    <main>
+      <div class="dashboard" id="dashboard">
+        <div class="weather">
+          <div class="condition">
+              <span class="text">description</span>
+              <span> <img class="icon" src="" /></span>     
+          </div>
+        
+
+          <h2 class="temp">temperature</h2>
+          <div class="temp">
+            <h4 class="feelsLike">feelsLike</h4>  
+            <h4 class="uv">uvIndex</h4>
+            <h4 class="cloud">cloud percentage</h4>
+          </div>
+
+
+        <div class="rain">
+            <span class="precip">precip</span>
+        </div>
+      </div>
+      
+      </div>
+
+      
+      <aside >
+        <!-- Wind block with heading, speed and direction -->
+        <div class="card wind ">
+          <span class="wind_header">Wind
+            <img class="wind_icon" src="images/icons8-wind-60.png">
+          </span>
+          <div class="wind_info">
+            <h4 class="wind_speed">speed</h4>
+            <h4 class="wind_direction">direction</h4>
+          </div>
+        </div>
+  
+        <!-- Sunrise and sunset block -->
+        <div class="card sun_movement ">
+          <img class="sunrise_icon" src="images/icons8-climate-64.png">
+          <h4 class="sunrise">sunrise</h4>
+          
+          <img class="sunset_icon" src="images/icons8-sunset-64.png">
+          <h4 class="sunset">sunset</h4>
+        </div>
+  
+        <!-- Moon block -->
+        <div class="card moon ">
+          <img class="moon_icon" src="" height="50px" width="50px">
+          <h3 class="moonphase"></h3>
+          <h4 class="moonrise"></h4>
+          <h4 class="moonset"></h4>
+        </div>
+      </aside>
+    </main>
+
+  </body>
+  <script src="index.js"></script>
+</html>

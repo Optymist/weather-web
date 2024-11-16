@@ -1,0 +1,93 @@
+body {
+  background-color: rgb(253, 191, 170);
+  width: 100%;
+  height: 80vh;
+  display: flexbox;
+  justify-content: center;
+  padding: 0px;
+  margin: 0px;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  max-width: 2000px;
+  height: 100%;
+  aside {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-evenly;
+    .card {
+      display: flex;
+      width: 70%;
+      height: max-content;
+      flex-direction: column;
+      align-items: center;
+      border: 1.5px solid rgb(252, 196, 147);
+      background-color: rgb(255, 233, 213);
+    }
+  }
+  .dashboard {
+    width: 70%;
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+    margin-left: 30rem;
+    border: 1.5px solid white;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    .weather {
+      position: absolute;
+      right: 50%;
+      width: max-content;
+    }
+
+    .condition {
+      display: flex;
+      border: 1.5px solid rgb(252, 196, 147);
+      background-color: rgb(255, 233, 213);
+      border-radius: 10px;
+      margin-top: 20%;
+    }
+  }
+}
+
+.location {
+  margin: auto;
+  width: max-content;
+  color: rgb(10, 10, 10);
+}
+
+.city {
+  font-size: 4em;
+  margin-right: 10px;
+}
+
+.region {
+  margin: 2px 150px;
+}
+
+.condition {
+  display: flex rgb(255, 255, 255);
+  align-items: center;
+  justify-content: center;
+}
+
+.wind_header {
+  font-size: 1.5em;
+}
+
+.wind_icon {
+  padding-top: 20%;
+  max-height: 1.3em;
+}
+
+.sun_movement,
+.moon {
+  padding-top: 1.4em;
+}

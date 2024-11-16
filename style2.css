@@ -1,0 +1,181 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background: linear-gradient(to bottom, #87ceeb, #f0f8ff);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* location search */
+.location-select {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.location-select input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #87ceeb;
+    border-radius: 5px;
+    width: 250px;
+}
+
+.location-select button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    background-color: #ffa07a;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.location-select button:hover {
+    background-color: #ff7f50;
+}
+
+/* location header */
+.location {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.location .header {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 1.2rem;
+}
+
+.location .region {
+    font-size: 1.5rem;
+    color: #555;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* main dashboard */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+}
+
+/* details */
+.dashboard {
+    flex: 1;
+    max-width: 600px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.weather .condition {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.weather .condition .text {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.weather .temp {
+    margin-top: 15px;
+    font-size: 2rem;
+    color: #ff4500;
+    font-weight: bold;
+}
+
+.weather h4 {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+/* sidebar (sun, wind, moon) */
+aside {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.card h4 .card h3 {
+    color: #555;
+    margin-top: 10px auto;
+}
+
+.card img {
+    max-width: 60px;
+    margin: 10px auto;
+}
+
+/* responsiveness */
+@media (max-width: 768px) {
+    .location-select input {
+        width: 200px;
+    }
+
+    .dashboard, aside {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .weather .condition {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .location .header {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .location-select {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .location-select input {
+        width: 100%;
+    }
+
+    .location .header {
+        font-size: 1rem;
+    }
+
+    .dashboard .card {
+        padding: 10px;
+    }
+
+    .weather .temp {
+        font-size: 1.5rem;
+    }
+}
