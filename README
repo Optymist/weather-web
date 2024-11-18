@@ -1,1 +1,59 @@
-404 Not Found
+# Weather Website
+
+---
+
+## Overview
+This weather website is a dynamic application that provides real-time weather data, forecasts, and additional information such as moon phases, UV index, and wind conditions. Users can search for locations, view hourly and daily forecasts, and experience weather visuals that adapt based on current conditions.
+
+---
+
+## Features
+
+### Real-Time Weather Data
+- Displays current temperature, feels-like temperature, UV index, precipitation, and wind details.
+- Updates time and date to reflect the selected location's timezone.
+
+### Forecast
+- Provides a 3-day forecast including:
+  - Weather conditions
+  - Chance of rain
+  - Temperature highs and lows
+
+### Interactive Panels
+- **Left Panel:** Displays an image representing the weather condition. This panel smoothly transitions out of view on smaller screens.
+- **Right Sidebar:** Offers detailed information about sun and moon timings, including moon phases with matching icons.
+
+### Search Functionality
+- Users can search for a location to view its weather data.
+- Pressing "Enter" in the search box triggers a search automatically.
+- If no location is entered, the app fetches data based on the user’s geolocation (if permissions are granted).
+
+### Responsive Design
+- Adjusts layout for smaller devices using CSS media queries.
+- Hamburger menu for quick navigation appears on smaller screens.
+
+### Customizable Weather Images
+- Displays specific images for conditions like rain, snow, sunny, etc.
+- Defaults to a rainy image if "rain" is detected in the condition text.
+
+---
+
+## Technologies Used
+- **HTML/CSS:** For structuring and styling the website.
+- **JavaScript:** For functionality, API integration, and interactivity.
+- **WeatherAPI:** Used for fetching real-time weather data.
+- **Responsive Design:** Implemented with CSS media queries for adaptability across devices.
+
+---
+
+## Setup Instructions
+
+### Clone the Repository
+```bash
+git clone https://github.com/your-username/weather-website.git
+cd weather-website
+
+### Credits
+
+- Weather data is powered by WeatherAPI
+- Icons and images sourced from publicly available assets.
