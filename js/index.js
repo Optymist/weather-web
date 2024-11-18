@@ -20,6 +20,19 @@ let moonset = document.querySelector(".moonset");
 let moon_icon = document.querySelector(".moon_icon");
 let dashboard_image = document.getElementById("dashboard");
 
+document.getElementById('menu-toggle').addEventListener('click', () => {
+  const menu = document.getElementById('menu');
+  menu.classList.toggle('visible');
+  menu.classList.toggle('hidden');
+});
+
+document.getElementById("search-location").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    searchWeather();
+  }
+});
+
 function showLoading() {
   document.getElementById("loading-screen").style.display = "flex";
   document.getElementById("main-content").style.display = "none";
@@ -28,6 +41,48 @@ function showLoading() {
 function hideLoading() {
   document.getElementById("loading-screen").style.display = "none";
   document.getElementById("main-content").style.display = "block";
+}
+
+function loadHourlyPage() {
+  const location = document.getElementById("search-location").value || "default-location";
+  localStorage.setItem("apiKey", apiKey);
+  localStorage.setItem("location", location);
+  window.location.href = "hourly.html";
+}
+
+function toggleLeftPanel() {
+  const leftPanel = document.getElementById('left-panel');
+  if (window.innerWidth <= 1500) {
+    leftPanel.classList.add('hidden');
+  } else {
+    leftPanel.classList.remove('hidden');
+  }
+}
+
+window.addEventListener('resize', toggleLeftPanel)
+
+// Update the time every second
+let locationTimeUpdater;
+function startLocationTimeUpdate(data) {
+  const timezoneOffset = data.location.tz_id;
+  if (locationTimeUpdater) {
+    clearInterval(locationTimeUpdater);
+  }
+
+  
+  locationTimeUpdater = setInterval(() => {
+    const currentDate = new Date();
+    const localTime = currentDate.toLocaleTimeString("en-US", {
+      timeZone: timezoneOffset,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+
+    time.innerText = localTime;
+
+  }, 1000);
+
 }
 
 // Fetch weather data based on loaction
@@ -90,8 +145,9 @@ async function searchWeather() {
 
   if (weatherData) {
     displayWeather(weatherData);
-    setDateAndTime();
     displayForecast(weatherData)
+    startLocationTimeUpdate(weatherData);
+    updateDate(weatherData);
   } else {
     alert("Unable to fetch weather data for the entered location. Please try again.");
   }
@@ -109,8 +165,9 @@ function getUserLocation() {
         let weatherData = await fetchWeatherByLocation(`${latitude},${longitude}`);
         if (weatherData) {
           displayWeather(weatherData);
-          setDateAndTime();
-          displayForecast(weatherData)
+          displayForecast(weatherData);
+          startLocationTimeUpdate(weatherData);
+          updateDate(weatherData);
         }
       },
       function(error) {
@@ -143,7 +200,9 @@ function promptUserForLocation() {
       let weatherData = await fetchWeatherByLocation(location);
       if (weatherData) {
         displayWeather(weatherData);
-        setDateAndTime();
+        displayForecast(weatherData);
+        startLocationTimeUpdate(weatherData);
+        updateDate(weatherData);
       }
     } else {
       alert('Please enter a valid location.');
@@ -160,6 +219,7 @@ function promptUserForLocation() {
 function displayWeather(data) {
   let astroData = getAstro(data);
   let current = data.current;
+  const imageLeftPanelURL = getDashboardBackground(data);
 
   region.innerText = `${data.location.region}, ${data.location.country}`;
   city.innerText = data.location.name;
@@ -186,6 +246,8 @@ function displayWeather(data) {
   wind_direction.innerText = `Direction: ${current.wind_degree} ° ${current.wind_dir}`;
 
   precip.innerText = `Precipitation: ${current.precip_mm} mm`;
+
+  document.getElementById("weather-image").src = imageLeftPanelURL;
 }
 
 // Function to get astronomical data
@@ -259,27 +321,53 @@ function getMoonImage(moon_phase) {
   return img_path;
 }
 
-// Get the date and time
-function getDate() {
-  var currentdate = new Date();
-  let ldate = `${currentdate.getDate()}/${currentdate.getMonth() + 1}/${currentdate.getFullYear()}`;
-  let ltime = `${currentdate.getHours()}:${currentdate.getMinutes()}:${currentdate.getSeconds()}`;
-  return { ldate, ltime };
+function updateDate(data) {
+  const timezone = data.location.tz_id;
+  const currentDate = new Date().toLocaleDateString("en-US", {
+    timeZone: timezone,
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  date.innerText = currentDate;
 }
 
-// Continuously update date and time
-function setDateAndTime() {
-  setInterval(() => {
-    let { ldate, ltime } = getDate();
-    date.innerText = ldate;
-    time.innerText = ltime;
-    // console.log(ldate, ltime);
-  }, 1000);
-}
+// function setDateAndTime(localTime) {
+//   const [ldate, ltime] = localTime.split(" ");
+//   date.innerText = ldate;
+//   time.innerText = ltime;
+// }
+
+// // Get the date and time
+// function getDate() {
+//   var currentdate = new Date();
+//   let ldate = `${currentdate.getDate()}/${currentdate.getMonth() + 1}/${currentdate.getFullYear()}`;
+//   let ltime = `${currentdate.getHours()}:${currentdate.getMinutes()}:${currentdate.getSeconds()}`;
+//   return { ldate, ltime };
+// }
+
+// // Continuously update date and time
+// function setDateAndTime() {
+//   setInterval(() => {
+//     let { ldate, ltime } = getDate();
+//     date.innerText = ldate;
+//     time.innerText = ltime;
+//     // console.log(ldate, ltime);
+//   }, 1000);
+// }
+
+// function setDateAndTime(localtime) {
+//   const [date, time] = localtime.split(" ");
+//   date.innerText = date;
+//   time.innerText = time;
+// }
 
 // Initialize on page load
 window.onload = function() {
   getUserLocation();
+  toggleLeftPanel();
 }
 
 

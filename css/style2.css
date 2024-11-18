@@ -4,6 +4,94 @@
     box-sizing: border-box;
 }
 
+.left-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:400px;
+    height: 100vh;
+    background-color: #87ceeb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.left-panel.hidden {
+    opacity: 0;
+    transform: translateX(-100%);
+    pointer-events: none;
+}
+
+.left-panel img {
+    width: 100%;
+    /* max-width: 150px; */
+    height: 100%;
+    object-fit: cover; /*might change*/
+}
+
+.hamburger-menu {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+.hamburger-menu button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.menu {
+    position: fixed;
+    top: 50px;
+    right: 10px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    margin: 5px 0;
+}
+
+.menu a {
+    transform: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* smooth animation */
+.menu {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateY(-20px);
+    opacity: 0;
+}
+
+.menu.visible {
+    display: flex;
+    transform: translateY(0);
+    opacity: 1;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
@@ -94,7 +182,7 @@ body {
     font-size: 1.2rem;
 }
 
-.location .region {
+.location .region .city{
     font-size: 1.5rem;
     color: #555;
     font-weight: bold;
@@ -146,7 +234,7 @@ main {
 .weather .temp {
     margin-top: 15px;
     font-size: 2rem;
-    color: #ff4500;
+    color: #ff7f50;
     font-weight: bold;
 }
 
@@ -237,6 +325,12 @@ aside {
     max-width: 60px;
     margin: 10px auto;
 }
+
+@media (max-width: 1500px) {
+    .left-panel {
+        position: absolute;
+    }
+} 
 
 /* responsiveness */
 @media (max-width: 768px) {

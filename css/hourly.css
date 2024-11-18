@@ -1,0 +1,55 @@
+body {
+    height: 100vh;
+    background: linear-gradient(to bottom, #87ceeb, #f0f8ff);
+}
+
+h1 {
+    text-align: center;
+}
+
+#back-button {
+    padding: 10px 20px;
+    font-size: 0.rem;
+    border: none;
+    background-color: #ffa07a;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#back-button:hover {
+    background-color: #ff7f50;
+}
+
+#hourly-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.hour-card {
+    width: 120px;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hour-card img {
+    width: 50px;
+    height: 50px;
+}
+
+.hour-card h3 {
+    font-size: 1rem;
+    color: #333;
+}
+
+.hour-card p {
+    font-size: 0.9rem;
+    color: #666;
+}
