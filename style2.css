@@ -15,6 +15,41 @@ body {
     align-items: center;
 }
 
+/* loading screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #87ceeb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
 /* location search */
 .location-select {
     margin: 20px;
@@ -66,14 +101,24 @@ body {
     margin-top: 10px;
 }
 
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 /* main dashboard */
 main {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    width: 100%;
+    flex: 3;
     padding: 20px;
+    /* flex-direction: column; */
+    /* flex-wrap: wrap; */
+    /* gap: 20px; */
+    text-align: center;
+    /* width: 100%; */
 }
 
 /* details */
@@ -84,6 +129,7 @@ main {
     background: white;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 .weather .condition {
@@ -109,6 +155,63 @@ main {
     color: #555;
     margin: 5px 0;
 }
+
+/* forecast */
+.forecast {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .forecast h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .forecast-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .forecast-card {
+    width: 150px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .forecast-card h3 {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .forecast-card img {
+    width: 50px;
+    height: 50px;
+    margin: 5px 0;
+  }
+  
+  .forecast-card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 5px 0;
+  }
+  
+  .forecast-card strong {
+    color: #333;
+    font-weight: bold;
+  }
 
 /* sidebar (sun, wind, moon) */
 aside {

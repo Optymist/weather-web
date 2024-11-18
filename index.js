@@ -20,13 +20,24 @@ let moonset = document.querySelector(".moonset");
 let moon_icon = document.querySelector(".moon_icon");
 let dashboard_image = document.getElementById("dashboard");
 
+function showLoading() {
+  document.getElementById("loading-screen").style.display = "flex";
+  document.getElementById("main-content").style.display = "none";
+}
+
+function hideLoading() {
+  document.getElementById("loading-screen").style.display = "none";
+  document.getElementById("main-content").style.display = "block";
+}
+
 // Fetch weather data based on loaction
-async function fetchWeatherByLocation(location) {
+async function fetchWeatherByLocation(location, days = 5) {
   const baseURL = "http://api.weatherapi.com/v1/forecast.json";
 
   try {
+    showLoading();
     const response = await fetch(
-      `${baseURL}?key=${apiKey}&q=${location}&days=1&aqi=no`
+      `${baseURL}?key=${apiKey}&q=${location}&days=${days}&aqi=no`
     );
     if (!response.ok) throw new Error('Failed to fetch data.');
 
@@ -34,7 +45,35 @@ async function fetchWeatherByLocation(location) {
     return data;
   } catch (error) {
     console.error("Error fetching data: ", error)
+  } finally {
+    hideLoading();
   }
+}
+
+// display forecast data
+function displayForecast(weatherData) {
+  let forecastData = weatherData.forecast.forecastday;
+  console.log(forecastData);
+  const forecastContainer = document.getElementById("forecast-container");
+  forecastContainer.innerHTML = "";
+
+  forecastData.forEach(day => {
+    const forecastCard = document.createElement("div");
+    forecastCard.classList.add("forecast-card");
+
+    const date = new Date(day.date);
+    const options = { weekday: "short", day: "numeric", month: "short"};
+    const formattedDate = date.toLocaleDateString("en-US", options);
+
+    forecastCard.innerHTML = `
+      <h3>${formattedDate}</h3>
+      <img src="${day.day.condition.icon}" alt="${day.day.condition.text}" />
+      <p>${day.day.condition.text}</p>
+      <p><strong>${day.day.maxtemp_c}°C</strong> / ${day.day.mintemp_c}°C</p>
+      <p>Rain: ${day.day.daily_chance_of_rain}%</p>`;
+
+    forecastContainer.appendChild(forecastCard);
+  });
 }
 
 // Handle location search
@@ -47,11 +86,12 @@ async function searchWeather() {
     return;
   }
 
-  const weatherData = await fetchWeatherByLocation(location);
+  const weatherData = await fetchWeatherByLocation(location, 3);
 
   if (weatherData) {
     displayWeather(weatherData);
     setDateAndTime();
+    displayForecast(weatherData)
   } else {
     alert("Unable to fetch weather data for the entered location. Please try again.");
   }
@@ -70,6 +110,7 @@ function getUserLocation() {
         if (weatherData) {
           displayWeather(weatherData);
           setDateAndTime();
+          displayForecast(weatherData)
         }
       },
       function(error) {
@@ -115,17 +156,6 @@ function promptUserForLocation() {
   document.body.appendChild(locationContainer);
 }
 
-// async function getData() {
-//   try {
-//     // Only need to await when making API calls
-//     let data = await fetch(apikey);
-//     let result = await data.json();
-//     return result;
-//   } catch (error) {
-//     console.log("There was an issue.");
-//   }
-// }
-
 // Display weather information
 function displayWeather(data) {
   let astroData = getAstro(data);
@@ -133,7 +163,7 @@ function displayWeather(data) {
 
   region.innerText = `${data.location.region}, ${data.location.country}`;
   city.innerText = data.location.name;
-  dashboard_image.style.backgroundImage = `url(${getDashboardBackground(data)})`;
+  // dashboard_image.style.backgroundImage = `url(${getDashboardBackground(data)})`;
 
   temp.innerText = `${current.temp_c} °C`;
   feelsLike.innerText = `Feels like: ${current.feelslike_c} °C`;
@@ -252,48 +282,6 @@ window.onload = function() {
   getUserLocation();
 }
 
-// async function main() {
-//   let allData = await getData();
-//   let astroData = getAstro(allData);
-//   let current = allData.current;
-
-//   region.innerText = allData.location.region + ", " + allData.location.country;
-
-//   city.innerText = allData.location.name;
-
-//   dashboard_image.style.backgroundImage = `url(${getDashboardBackground(allData)})`;
-
-//   temp.innerText = current.temp_c + " °C";
-//   feelsLike.innerText = "Feels like: " + current.feelslike_c + " °C";
-//   uv.innerText = "UV Index: " + current.uv;
-//   cloud.innerText = "Cloud cover: " + current.cloud + " ％";
-
-//   textDescript.innerText = current.condition.text;
-//   icon.src = current.condition.icon;
-
-//   sunrise.innerText = astroData[0].sunrise;
-//   sunset.innerText = astroData[0].sunset;
-
-//   moonphase.innerText = astroData[0].moon_phase;
-//   moon_icon.src = getMoonImage(astroData[0].moon_phase);
-
-//   moonrise.innerText = "Rise: " + astroData[0].moonrise;
-//   moonset.innerText = "Set: " + astroData[0].moonset;
-
-//   wind_speed.innerText = "Speed: " + current.wind_kph + " km/h";
-//   wind_direction.innerText = "Direction: " + current.wind_degree + " °" + current.wind_dir;
-
-//   precip.innerText = "Precipitation: " + current.precip_mm + "mm";
-
-//     setInterval(() => {
-//       let { ldate, ltime } = getDate();
-//       date.innerText = ldate;
-//       time.innerText = ltime;
-//       console.log(ldate, ltime);
-//     }, 1000);
-//   }
-
-// main();
 
 
 
