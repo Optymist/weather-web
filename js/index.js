@@ -279,7 +279,6 @@ function getDashboardBackground(data) {
     } else {
       image_path += "night/"
     }
-
     // console.log(image_path)
 
     image_path += getConditionText(data);
@@ -288,7 +287,8 @@ function getDashboardBackground(data) {
     return image_path;
 
   } catch (error) {
-    console.log("Error while getting image path.")
+    console.log("Error while getting image path.");
+    return "/images/conditions/day/Partly_cloudy.jpg"
   }
 }
 
@@ -299,14 +299,23 @@ function getConditionText(data) {
 
   let url_condition = "";
 
-  for (let i=0; i<condition.length; i++) {
-    if (condition[i] == " ") {
-      url_condition += "_";
-    }
-    else {
-      url_condition += condition[i];
+  let checkCon = condition.toLowerCase();
+
+  if (checkCon.includes("rain") || checkCon.includes("drizzle")) {
+    url_condition += "Patchy_rain_possible";
+  } else if (checkCon.includes("snow") || checkCon.includes("sleet")) {
+    url_condition += "Patchy_snow_possible";
+  } else {
+    for (let i=0; i<condition.length; i++) {
+      if (condition[i] == " ") {
+        url_condition += "_";
+      }
+      else {
+        url_condition += condition[i];
+      }
     }
   }
+  
   url_condition += ".jpg";
   // console.log(url_condition)
   return url_condition;
